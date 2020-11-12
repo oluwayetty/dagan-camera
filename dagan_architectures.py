@@ -272,7 +272,6 @@ class UResNetGenerator:
 
 
                     # z_reshape_noise = tf.reshape(z_dense, [self.batch_size, h, w, num_filters])
-
                     z_reshape_noise = tf.reshape(z_dense, [self.batch_size, h, w, num_filters])
                     num_filters /= 2
                     num_filters = int(num_filters)

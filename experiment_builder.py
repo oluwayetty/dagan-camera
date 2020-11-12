@@ -76,7 +76,6 @@ class ExperimentBuilder(object):
                                             'total_g_train_loss_std', 'total_g_val_loss_std'], create=True)
 
     def run_experiment(self):
-        # import ipdb; ipdb.set_trace()
         with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
             sess.run(self.init)
             self.train_writer = tf.summary.FileWriter("{}/train_logs/".format(self.log_path),
@@ -117,7 +116,6 @@ class ExperimentBuilder(object):
                 self.z_vectors = interpolations.create_mine_grid(rows=1, cols=self.num_generations, dim=self.z_dim,
                                                                  space=3, anchors=None, spherical=True, gaussian=True)
             else:
-                import ipdb; ipdb.set_trace()
                 self.z_vectors = np.random.normal(size=(self.num_generations, self.z_dim))
                 self.z_2d_vectors = np.random.normal(size=(self.num_generations, self.z_dim))
 
@@ -139,16 +137,17 @@ class ExperimentBuilder(object):
                                 x_train_i, x_train_j = self.data.get_train_batch()
                                 x_val_i, x_val_j = self.data.get_val_batch()
 
+
                                 _, d_train_loss_value = sess.run(
                                     [self.graph_ops["d_opt_op"], self.losses["d_losses"]],
                                     feed_dict={self.input_x_i: x_train_i,
-                                               self.input_x_j: x_train_j,
+                                               self.input_x_j: x_val_i, #second class image
                                                self.dropout_rate: self.dropout_rate_value,
                                                self.training_phase: True, self.random_rotate: True})
 
                                 d_val_loss_value = sess.run(
                                     self.losses["d_losses"],
-                                    feed_dict={self.input_x_i: x_val_i,
+                                    feed_dict={self.input_x_i: x_train_j,
                                                self.input_x_j: x_val_j,
                                                self.dropout_rate: self.dropout_rate_value,
                                                self.training_phase: False, self.random_rotate: False})
@@ -164,13 +163,13 @@ class ExperimentBuilder(object):
                                     [self.graph_ops["g_opt_op"], self.losses["g_losses"],
                                      self.summary],
                                     feed_dict={self.input_x_i: x_train_i,
-                                               self.input_x_j: x_train_j,
+                                               self.input_x_j: x_val_i,
                                                self.dropout_rate: self.dropout_rate_value,
                                                self.training_phase: True, self.random_rotate: True})
 
                                 g_val_loss_value, val_summaries = sess.run(
                                     [self.losses["g_losses"], self.summary],
-                                    feed_dict={self.input_x_i: x_val_i,
+                                    feed_dict={self.input_x_i: x_train_j,
                                                self.input_x_j: x_val_j,
                                                self.dropout_rate: self.dropout_rate_value,
                                                self.training_phase: False, self.random_rotate: False})
@@ -246,31 +245,31 @@ class ExperimentBuilder(object):
                     with tqdm.tqdm(total=self.total_gen_batches) as pbar_samp:
                         for i in range(self.total_gen_batches):
                             x_gen_a = self.data.get_gen_batch()
-                            sample_generator(num_generations=self.num_generations, sess=sess,
-                                             same_images=self.same_images,
-                                             inputs=x_gen_a,
-                                             data=self.data, batch_size=self.batch_size, z_input=self.z_input,
-                                             file_name="{}/test_z_variations_{}_{}_{}.png".format(self.save_image_path,
-                                                                                                  self.experiment_name,
-                                                                                                  e, i),
-                                             input_a=self.input_x_i, training_phase=self.training_phase,
-                                             z_vectors=self.z_vectors, dropout_rate=self.dropout_rate,
-                                             dropout_rate_value=self.dropout_rate_value)
-
-                            sample_two_dimensions_generator(sess=sess,
-                                                            same_images=self.same_images,
-                                                            inputs=x_gen_a,
-                                                            data=self.data, batch_size=self.batch_size,
-                                                            z_input=self.z_input,
-                                                            file_name="{}/val_z_spherical_{}_{}_{}".format(
-                                                                self.save_image_path,
-                                                                self.experiment_name,
-                                                                e, i),
-                                                            input_a=self.input_x_i,
-                                                            training_phase=self.training_phase,
-                                                            dropout_rate=self.dropout_rate,
-                                                            dropout_rate_value=self.dropout_rate_value,
-                                                            z_vectors=self.z_2d_vectors)
+                            # sample_generator(num_generations=self.num_generations, sess=sess,
+                            #                  same_images=self.same_images,
+                            #                  inputs=x_gen_a,
+                            #                  data=self.data, batch_size=self.batch_size, z_input=self.z_input,
+                            #                  file_name="{}/test_z_variations_{}_{}_{}.png".format(self.save_image_path,
+                            #                                                                       self.experiment_name,
+                            #                                                                       e, i),
+                            #                  input_a=self.input_x_i, training_phase=self.training_phase,
+                            #                  z_vectors=self.z_vectors, dropout_rate=self.dropout_rate,
+                            #                  dropout_rate_value=self.dropout_rate_value)
+                            #
+                            # sample_two_dimensions_generator(sess=sess,
+                            #                                 same_images=self.same_images,
+                            #                                 inputs=x_gen_a,
+                            #                                 data=self.data, batch_size=self.batch_size,
+                            #                                 z_input=self.z_input,
+                            #                                 file_name="{}/val_z_spherical_{}_{}_{}".format(
+                            #                                     self.save_image_path,
+                            #                                     self.experiment_name,
+                            #                                     e, i),
+                            #                                 input_a=self.input_x_i,
+                            #                                 training_phase=self.training_phase,
+                            #                                 dropout_rate=self.dropout_rate,
+                            #                                 dropout_rate_value=self.dropout_rate_value,
+                            #                                 z_vectors=self.z_2d_vectors)
 
                             pbar_samp.update(1)
 

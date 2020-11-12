@@ -1,7 +1,7 @@
 import numpy as np
 
 array_reloaded = np.load('C:\\Users\\User\\Desktop\\School\\Intmanlab\\DAGAN\\datasets\\imgds.npy')
-import ipdb; ipdb.set_trace()
+
 print(array_reloaded)
 print('\nShape: ',array_reloaded.shape)
 

@@ -92,14 +92,14 @@ class DAGAN:
         noise with dimensionality [batch_size, z_dim]
         :return: A batch of generated images, one per conditional image
         """
-        # import ipdb; ipdb.set_trace()
+
         if z_input is None:
             # z_input = tf.random_normal([self.batch_size(32), self.z_dim(100)], mean=0, stddev=1)
             x = tf.constant([-0.9487,0.1262,-0.2896,229.0239,0.316,0.3759,-0.871,53.4699,-0.0011,-0.9179,-0.3965,34.8663,
             -0.634,0.6705,-0.3851,93.4414,0.7684,0.4909,-0.4104,173.6058,-0.0862,-0.5562,-0.8265,-28.3289])
 
             # z_input = tf.random_normal([self.batch_size, 24], mean=0, stddev=1)
-            z_input = tf.stack([x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x]) #32 dimension by 24 
+            z_input = tf.stack([x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x]) #32 dimension by 24
 
         generated_samples, encoder_layers, decoder_layers = self.g(z_input,
                                conditional_images,
@@ -155,7 +155,7 @@ class DAGAN:
         :return: Returns the generator and discriminator losses.
         """
         with tf.name_scope("losses_{}".format(gpu_id)):
-
+            # input a is from class 1, input b is from class 2
             input_a, input_b = self.data_augment_batch(self.input_x_i[gpu_id], self.input_x_j[gpu_id])
             x_g = self.generate(input_a)
 
@@ -181,7 +181,7 @@ class DAGAN:
             )
             input_shape = input_a.get_shape()
             input_shape = [int(n) for n in input_shape]
-            differences_g = x_g - input_b
+            differences_g = x_g - input_b #what was generated - image from class 2
             differences_g = tf.reshape(differences_g, (self.batch_size, input_shape[1]*input_shape[2]*input_shape[3]))
             interpolates_g = input_b + tf.reshape(alpha * differences_g, (self.batch_size, input_shape[1],
                                                                           input_shape[2], input_shape[3]))
@@ -267,7 +267,7 @@ class DAGAN:
         Samples images from the DAGAN using input_x_i as image conditional input and z_inputs as the gaussian noise.
         :return: Inputs and generated images
         """
-        conditional_inputs = self.input_x_i[0]
+        conditional_inputs = self.input_x_i[0] #class c as in camera 1
         generated = self.generate(conditional_inputs,
            z_input=self.z_inputs)
 

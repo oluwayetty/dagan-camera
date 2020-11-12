@@ -16,7 +16,7 @@ class ExperimentBuilder(object):
         self.experiment_name = args.experiment_title
         self.saved_models_filepath, self.log_path, self.save_image_path = build_experiment_folder(self.experiment_name)
         self.num_gpus = args.num_of_gpus
-        self.batch_size = args.batch_size
+        self.batch_size = args.batch_size`
         gen_depth_per_layer = args.generator_inner_layers
         discr_depth_per_layer = args.discriminator_inner_layers
         self.z_dim = args.z_dim

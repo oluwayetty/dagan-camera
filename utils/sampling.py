@@ -11,7 +11,7 @@ def unstack(np_array):
 
 def sample_generator(num_generations, sess, same_images, inputs, dropout_rate, dropout_rate_value, data, batch_size,
                      file_name, input_a, training_phase, z_input, z_vectors):
-    # import ipdb; ipdb.set_trace()
+
 
     input_images, generated = sess.run(same_images, feed_dict={ input_a: inputs,
                                                                 dropout_rate: dropout_rate_value,
@@ -31,9 +31,9 @@ def sample_generator(num_generations, sess, same_images, inputs, dropout_rate, d
         input_images_list[:, i] = input_images
         generated_list[:, i] = generated
 
-    np.load("C:\\Users\\User\\Desktop\\School\\Intmanlab\\DAGAN\\datasets\\input_images.npy")
-    np.load("C:\\Users\\User\\Desktop\\School\\Intmanlab\\DAGAN\\datasets\\generated.npy")
-    # import ipdb; ipdb.set_trace()
+    np.save("C:\\Users\\User\\Desktop\\School\\Intmanlab\\DAGAN\\datasets\\input_images.npy", input_images)
+    np.save("C:\\Users\\User\\Desktop\\School\\Intmanlab\\DAGAN\\datasets\\generated.npy", generated)
+
 
     input_images, generated = data.reconstruct_original(input_images_list), data.reconstruct_original(generated_list)
 
