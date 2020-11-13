@@ -95,11 +95,10 @@ class DAGAN:
 
         if z_input is None:
             # z_input = tf.random_normal([self.batch_size(32), self.z_dim(100)], mean=0, stddev=1)
+            # x here = camera calibration matrix which is a 1 by 24 vector
             x = tf.constant([-0.9487,0.1262,-0.2896,229.0239,0.316,0.3759,-0.871,53.4699,-0.0011,-0.9179,-0.3965,34.8663,
             -0.634,0.6705,-0.3851,93.4414,0.7684,0.4909,-0.4104,173.6058,-0.0862,-0.5562,-0.8265,-28.3289])
-
-            # z_input = tf.random_normal([self.batch_size, 24], mean=0, stddev=1)
-            z_input = tf.stack([x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x]) #32 dimension by 24
+            z_input = tf.stack([x,x,x,x,x,x,x,x]) #32 dimension by 24
 
         generated_samples, encoder_layers, decoder_layers = self.g(z_input,
                                conditional_images,

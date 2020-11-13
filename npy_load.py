@@ -5,7 +5,6 @@ array_reloaded = np.load('C:\\Users\\User\\Desktop\\School\\Intmanlab\\DAGAN\\da
 print(array_reloaded)
 print('\nShape: ',array_reloaded.shape)
 
-
 from matplotlib import pyplot as plt
 
 plt.imshow(img_array, cmap='gray')

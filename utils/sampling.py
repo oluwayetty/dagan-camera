@@ -10,7 +10,7 @@ def unstack(np_array):
     return new_list
 
 def sample_generator(num_generations, sess, same_images, inputs, dropout_rate, dropout_rate_value, data, batch_size,
-                     file_name, input_a, training_phase, z_input, z_vectors):
+                     file_name, input_a, training_phase, z_input, z_vectors, epoch):
 
 
     input_images, generated = sess.run(same_images, feed_dict={ input_a: inputs,
@@ -22,45 +22,26 @@ def sample_generator(num_generations, sess, same_images, inputs, dropout_rate, d
                                         input_images.shape[-1]))
     generated_list = np.zeros(shape=(batch_size, num_generations, generated.shape[-3], generated.shape[-2],
                                      generated.shape[-1]))
-    height = generated.shape[-3]
     for i in range(num_generations):
         input_images, generated = sess.run(same_images, feed_dict={z_input: batch_size*[z_vectors[i]],
                                                                    input_a: inputs,
                                                                    training_phase: False,
                                                                    dropout_rate: dropout_rate_value})
-        input_images_list[:, i] = input_images
-        generated_list[:, i] = generated
 
-    np.save("C:\\Users\\User\\Desktop\\School\\Intmanlab\\DAGAN\\datasets\\input_images.npy", input_images)
-    np.save("C:\\Users\\User\\Desktop\\School\\Intmanlab\\DAGAN\\datasets\\generated.npy", generated)
+        input_images_reconstruct, generated_reconstruct = data.reconstruct_original(input_images), data.reconstruct_original(generated)
 
+        assert (input_images_reconstruct.shape) == (generated_reconstruct.shape)
+        for j in range(len(input_images_reconstruct)):
+            print("Saving input and generated images at index {}".format(i))
 
-    input_images, generated = data.reconstruct_original(input_images_list), data.reconstruct_original(generated_list)
+            imageio.imwrite(file_name.split(".png")[0] + "_input_{}_{}.png".format(i,j), input_images_reconstruct[j])
+            imageio.imwrite(file_name.split(".png")[0] + "_generated_{}_{}.png".format(i,j), generated_reconstruct[j])
 
-    # input_images = unstack(input_images)
-    # input_images = np.concatenate((input_images), axis=1)
-    # input_images = unstack(input_images)
-    # input_images = np.concatenate((input_images), axis=1)
-    # line = np.zeros(shape=(batch_size, 1, generated.shape[-3], generated.shape[-2],
-    #                                  generated.shape[-1]))
-    #
-    # generated = unstack(generated)
-    # generated = np.concatenate((generated), axis=1)
-    # generated = unstack(generated)
-    # generated = np.concatenate((generated), axis=1)
-    #
-    # image = np.concatenate((input_images, generated), axis=1)
-    # image = np.squeeze(image)
-
-    # image = (image - np.min(image)) / (np.max(image) - np.min(image))
-    # image = image * 255
-    # image = image[:, (num_generations-1)*height:]
-    # imageio.imwrite(file_name, image)
 
 def sample_two_dimensions_generator(sess, same_images, inputs,
                                     dropout_rate, dropout_rate_value, data,
                                     batch_size, file_name, input_a,
-                                    training_phase, z_input, z_vectors):
+                                    training_phase, z_input, z_vectors, epoch):
     num_generations = z_vectors.shape[0]
     row_num_generations = int(np.sqrt(num_generations))
     column_num_generations = int(np.sqrt(num_generations))
@@ -73,57 +54,17 @@ def sample_two_dimensions_generator(sess, same_images, inputs,
                                         input_images.shape[-1]))
     generated_list = np.zeros(shape=(batch_size, num_generations, generated.shape[-3], generated.shape[-2],
                                      generated.shape[-1]))
-    height = generated.shape[-3]
 
     for i in range(num_generations):
         input_images, generated = sess.run(same_images, feed_dict={z_input: batch_size*[z_vectors[i]],
                                                                       input_a: inputs,
                                                                       training_phase: False, dropout_rate:
                                                                       dropout_rate_value})
-        input_images_list[:, i] = input_images
-        generated_list[:, i] = generated
 
-    np.load("C:\\Users\\User\\Desktop\\School\\Intmanlab\\DAGAN\\datasets\\input_images_2D.npy")
-    np.load("C:\\Users\\User\\Desktop\\School\\Intmanlab\\DAGAN\\datasets\\generated_2D.npy")
-    input_images, generated = data.reconstruct_original(input_images_list), data.reconstruct_original(generated_list)
-    im_size = generated.shape
+        input_images_reconstruct2D, generated_reconstruct2D = data.reconstruct_original(input_images), data.reconstruct_original(generated)
 
-    input_images = unstack(input_images)
-    input_images = np.concatenate((input_images), axis=1)
-    input_images = unstack(input_images)
-    input_images = np.concatenate((input_images), axis=1)
-    line = np.zeros(shape=(batch_size, 1, generated.shape[-3], generated.shape[-2],
-                                     generated.shape[-1]))
-
-    generated = unstack(generated)
-    generated = np.concatenate((generated), axis=1)
-    generated = unstack(generated)
-    generated = np.concatenate((generated), axis=1)
-
-    image = np.concatenate((input_images, generated), axis=1)
-    im_dimension = im_size[3]
-    image = np.squeeze(image)
-    image = (image - np.min(image)) / (np.max(image) - np.min(image))
-    image = image * 255
-    full_image = image[:, (num_generations-1)*height:]
-
-
-    for i in range(batch_size):
-        image = full_image[i*im_dimension:(i+1)*im_dimension]
-        seed_image = image[0:im_dimension, 0:im_dimension]
-        gen_images = image[0:im_dimension, 2*im_dimension:]
-        image = np.concatenate((seed_image, gen_images), axis=1)
-
-        properly_positioned_image = []
-        for j in range(row_num_generations):
-            start = im_dimension*j*row_num_generations
-            stop = im_dimension*(j+1)*row_num_generations
-
-
-            row_image = image[:, start:stop]
-
-            properly_positioned_image.append(row_image)
-
-        positioned_image = np.concatenate(properly_positioned_image, axis=0)
-
-        imageio.imwrite("{}_{}.png".format(file_name, i), positioned_image)
+        assert (input_images_reconstruct2D.shape) == (generated_reconstruct2D.shape)
+        for j in range(len(generated_reconstruct2D)):
+            print("Saving input2D and generated2D images at index {}".format(i))
+            imageio.imwrite(file_name.split(".png")[0] + "_input2D_{}_{}.png".format(i,j), input_images_reconstruct2D[j])
+            imageio.imwrite(file_name.split(".png")[0] + "_generated2D_{}_{}.png".format(i,j), generated_reconstruct2D[j])

@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 np.random.seed(2591)
 
 
@@ -130,7 +131,6 @@ class DAGANDataset(object):
         x_input_a_batch = []
         x_input_b_batch = []
         if dataset_name == "gen":
-            print("gennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
             x_input_a = self.get_next_gen_batch()
             for n_batch in range(self.num_of_gpus):
                 x_input_a_batch.append(x_input_a)
@@ -138,7 +138,6 @@ class DAGANDataset(object):
             return x_input_a_batch
         else:
             for n_batch in range(self.num_of_gpus):
-                print("helloooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
                 x_input_a, x_input_b = self.get_batch(dataset_name)
                 x_input_a_batch.append(x_input_a)
                 x_input_b_batch.append(x_input_b)
@@ -305,8 +304,7 @@ class OmniglotDAGANDataset(DAGANDataset):
     def load_dataset(self, gan_training_index):
         self.x = np.load("datasets/omniglot_data.npy")
         self.x = self.x / np.max(self.x)
-        x_train, x_test, x_val = self.x[:1200], self.x[1200:1600], self.x[1600:]
-
+        x_train, x_test, x_val = self.x[:10], self.x[10:15], self.x[15:20]
 
         x_train = x_train[:gan_training_index]
         return x_train, x_test, x_val
@@ -321,6 +319,7 @@ class OmniglotImbalancedDAGANDataset(DAGANImbalancedDataset):
         for i in range(x.shape[0]):
             choose_samples = np.random.choice([i for i in range(1, 15)])
             x_temp.append(x[i, :choose_samples])
+
         self.x = np.array(x_temp)
         self.x = self.x / np.max(self.x)
         x_train, x_test, x_val = self.x[:100], self.x[100:150], self.x[150:200]
@@ -353,33 +352,19 @@ class CameraDAGANDataset(DAGANDataset):
     def load_dataset(self, gan_training_index):
 
         self.train1 = np.load("datasets/train_cam1_1.npy")
-        self.train2 = np.load("datasets/train_cam1_2.npy")
-        self.train3 = np.load("datasets/train_cam1_3.npy")
 
         self.val1 = np.load("datasets/val_cam2_1.npy")
-        self.val2 = np.load("datasets/val_cam2_2.npy")
-        self.val3 = np.load("datasets/val_cam2_3.npy")
 
         self.test1 = np.load("datasets/test_cam3_1.npy")
-        self.test2 = np.load("datasets/test_cam3_2.npy")
-        self.test3 = np.load("datasets/test_cam3_3.npy")
 
-        self.train = np.concatenate((self.train1, self.train2, self.train3),axis=0)
-        self.val = np.concatenate((self.val1, self.val2, self.val3),axis=0)
-        self.test = np.concatenate((self.test1, self.test2, self.test3),axis=0)
+        x_train = self.train1[:1000] / np.max(self.train1[:1000]) #normalizing data
+        x_train = np.reshape(x_train, newshape=(1, 1000, 224, 224, 3))
 
-        print(self.train.shape)
-        print(self.val.shape)
-        print(self.test.shape)
+        x_test = self.test1[:1000] / np.max(self.test1[:1000]) #normalizing data
+        x_test = np.reshape(x_test, newshape=(1, 1000, 224, 224, 3))
 
+        x_val = self.val1[:1000] / np.max(self.val1[:1000]) #normalizing data
+        x_val = np.reshape(x_val, newshape=(1, 1000, 224, 224, 3))
 
-        x_train = self.train / np.max(self.train) #normalizing data
-        x_train = np.reshape(x_train, newshape=(1, 102, 256, 256, 3))
-
-        x_val = self.val / np.max(self.val) #normalizing data
-        x_val = np.reshape(x_val, newshape=(1, 102, 256, 256, 3))
-
-        x_test = self.test / np.max(self.test) #normalizing data
-        x_test = np.reshape(x_test, newshape=(1, 102, 256, 256, 3))
 
         return x_train, x_test, x_val
