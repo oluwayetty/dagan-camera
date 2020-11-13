@@ -2,7 +2,3 @@ datasets
 camera-dagan
 __pycache__
 utils/__pycache__
-train_face_dagan.py
-train_omniglot_dagan.py
-gen_face_dagan.py
-gen_omniglot_dagan.py
