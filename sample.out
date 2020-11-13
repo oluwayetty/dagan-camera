@@ -1,0 +1,49 @@
+Epoch 0: d_train_loss_mean: -935.2584838867188, d_train_loss_std: 789.0359497070312,g_train_loss_mean: 698.9739379882812, g_train_loss_std: 448.9666442871094
+Epoch 0: d_val_loss_mean: -945.746826171875, d_val_loss_std: 839.838134765625,g_val_loss_mean: 585.4864501953125, g_val_loss_std: 638.58544921875,
+Saved current best val model at omniglot/dagan/experiment/default/saved_models//val_saved_model_omniglot_dagan_experiment_default_0.ckpt
+Epoch 1: d_train_loss_mean: -3416.666015625, d_train_loss_std: 2232.437744140625,g_train_loss_mean: 1521.4580078125, g_train_loss_std: 1972.2691650390625
+Epoch 1: d_val_loss_mean: -3514.097900390625, d_val_loss_std: 2309.8447265625,g_val_loss_mean: 1236.1251220703125, g_val_loss_std: 2162.53076171875,
+Saved current best val model at omniglot/dagan/experiment/default/saved_models//val_saved_model_omniglot_dagan_experiment_default_1.ckpt
+Epoch 2: d_train_loss_mean: -7480.642578125, d_train_loss_std: 3148.22509765625,g_train_loss_mean: 4007.114013671875, g_train_loss_std: 1974.107177734375
+Epoch 2: d_val_loss_mean: -8531.46875, d_val_loss_std: 3407.0234375,g_val_loss_mean: 4270.390625, g_val_loss_std: 2761.046630859375,
+Saved current best val model at omniglot/dagan/experiment/default/saved_models//val_saved_model_omniglot_dagan_experiment_default_2.ckpt
+Epoch 3: d_train_loss_mean: -7381.6982421875, d_train_loss_std: 6704.09765625,g_train_loss_mean: 5243.89501953125, g_train_loss_std: 4995.32421875
+Epoch 3: d_val_loss_mean: -7781.47021484375, d_val_loss_std: 8157.048828125,g_val_loss_mean: 4898.04052734375, g_val_loss_std: 5505.8134765625,
+Epoch 4: d_train_loss_mean: -13846.0, d_train_loss_std: 8888.287109375,g_train_loss_mean: 9113.2314453125, g_train_loss_std: 4853.74072265625
+Epoch 4: d_val_loss_mean: -14940.5361328125, d_val_loss_std: 8412.5439453125,g_val_loss_mean: 8269.7197265625, g_val_loss_std: 6193.09375,
+Saved current best val model at omniglot/dagan/experiment/default/saved_models//val_saved_model_omniglot_dagan_experiment_default_4.ckpt
+Epoch 5: d_train_loss_mean: -11325.4609375, d_train_loss_std: 33130.20703125,g_train_loss_mean: 14038.1796875, g_train_loss_std: 4624.07421875
+Epoch 5: d_val_loss_mean: -13491.193359375, d_val_loss_std: 13358.9384765625,g_val_loss_mean: 13161.03515625, g_val_loss_std: 6588.78662109375,
+Epoch 6: d_train_loss_mean: -17924.125, d_train_loss_std: 17213.70703125,g_train_loss_mean: 13314.869140625, g_train_loss_std: 11073.6494140625
+Epoch 6: d_val_loss_mean: -18034.83984375, d_val_loss_std: 32833.59375,g_val_loss_mean: 12186.427734375, g_val_loss_std: 12585.849609375,
+Saved current best val model at omniglot/dagan/experiment/default/saved_models//val_saved_model_omniglot_dagan_experiment_default_6.ckpt
+Epoch 7: d_train_loss_mean: -22407.162109375, d_train_loss_std: 18404.98828125,g_train_loss_mean: 11098.1884765625, g_train_loss_std: 18486.990234375
+Epoch 7: d_val_loss_mean: -23406.810546875, d_val_loss_std: 19966.24609375,g_val_loss_mean: 9452.87109375, g_val_loss_std: 19758.09765625,
+Saved current best val model at omniglot/dagan/experiment/default/saved_models//val_saved_model_omniglot_dagan_experiment_default_7.ckpt
+Epoch 8: d_train_loss_mean: -18578.224609375, d_train_loss_std: 19779.904296875,g_train_loss_mean: 14143.17578125, g_train_loss_std: 19882.5859375
+Epoch 8: d_val_loss_mean: -18254.482421875, d_val_loss_std: 29439.765625,g_val_loss_mean: 11690.388671875, g_val_loss_std: 21719.2578125,
+Epoch 9: d_train_loss_mean: -17842.84765625, d_train_loss_std: 24468.0078125,g_train_loss_mean: 15055.3271484375, g_train_loss_std: 23285.828125
+Epoch 9: d_val_loss_mean: -20262.7421875, d_val_loss_std: 23031.205078125,g_val_loss_mean: 11771.1884765625, g_val_loss_std: 24215.056640625,
+Epoch 10: d_train_loss_mean: -21554.2109375, d_train_loss_std: 24564.966796875,g_train_loss_mean: 21992.27734375, g_train_loss_std: 20893.7578125
+Epoch 10: d_val_loss_mean: -26854.46484375, d_val_loss_std: 25481.546875,g_val_loss_mean: 17040.4765625, g_val_loss_std: 24895.62890625,
+Saved current best val model at omniglot/dagan/experiment/default/saved_models//val_saved_model_omniglot_dagan_experiment_default_10.ckpt
+Epoch 11: d_train_loss_mean: -27076.06640625, d_train_loss_std: 34151.8984375,g_train_loss_mean: 35776.453125, g_train_loss_std: 18002.455078125
+Epoch 11: d_val_loss_mean: -28778.150390625, d_val_loss_std: 33884.8359375,g_val_loss_mean: 33530.3359375, g_val_loss_std: 21291.9375,
+Saved current best val model at omniglot/dagan/experiment/default/saved_models//val_saved_model_omniglot_dagan_experiment_default_11.ckpt
+Epoch 12: d_train_loss_mean: -17767.337890625, d_train_loss_std: 26750.064453125,g_train_loss_mean: 23363.763671875, g_train_loss_std: 31537.314453125
+Epoch 12: d_val_loss_mean: -16762.130859375, d_val_loss_std: 35204.49609375,g_val_loss_mean: 17690.666015625, g_val_loss_std: 33236.34765625,
+Epoch 13: d_train_loss_mean: -24831.232421875, d_train_loss_std: 37724.55078125,g_train_loss_mean: 19061.884765625, g_train_loss_std: 36845.21484375
+Epoch 13: d_val_loss_mean: -27200.03125, d_val_loss_std: 38528.55859375,g_val_loss_mean: 14919.869140625, g_val_loss_std: 38891.98046875,
+Epoch 14: d_train_loss_mean: -19349.353515625, d_train_loss_std: 24793.83984375,g_train_loss_mean: 14716.4638671875, g_train_loss_std: 32727.21484375
+Epoch 14: d_val_loss_mean: -16890.09375, d_val_loss_std: 41087.421875,g_val_loss_mean: 5957.81201171875, g_val_loss_std: 34950.69921875,
+Epoch 15: d_train_loss_mean: -15956.35546875, d_train_loss_std: 35488.515625,g_train_loss_mean: 21723.33984375, g_train_loss_std: 41991.484375
+Epoch 15: d_val_loss_mean: -13613.337890625, d_val_loss_std: 39332.02734375,g_val_loss_mean: 12694.4091796875, g_val_loss_std: 43938.078125,
+Epoch 16: d_train_loss_mean: -17520.828125, d_train_loss_std: 27208.373046875,g_train_loss_mean: 24144.54296875, g_train_loss_std: 36561.35546875
+Epoch 16: d_val_loss_mean: -14057.2607421875, d_val_loss_std: 31885.330078125,g_val_loss_mean: 14682.103515625, g_val_loss_std: 40646.00390625,
+Epoch 17: d_train_loss_mean: -24294.451171875, d_train_loss_std: 39942.296875,g_train_loss_mean: 33749.125, g_train_loss_std: 29739.263671875
+Epoch 17: d_val_loss_mean: -19415.994140625, d_val_loss_std: 39650.0625,g_val_loss_mean: 24404.775390625, g_val_loss_std: 34765.7890625,
+Epoch 18: d_train_loss_mean: -15041.21875, d_train_loss_std: 23667.759765625,g_train_loss_mean: 12814.12109375, g_train_loss_std: 38453.65234375
+Epoch 18: d_val_loss_mean: -7955.34228515625, d_val_loss_std: 70871.8984375,g_val_loss_mean: 2901.041015625, g_val_loss_std: 39786.95703125,
+Epoch 19: d_train_loss_mean: -19225.6953125, d_train_loss_std: 22789.0625,g_train_loss_mean: 24817.72265625, g_train_loss_std: 31042.404296875
+Epoch 19: d_val_loss_mean: -14549.169921875, d_val_loss_std: 22390.31640625,g_val_loss_mean: 16750.333984375, g_val_loss_std: 34918.76171875,
+Epoch 20: d_train_loss_mean: -14753.484375, d_train_loss_std: 20736.470703125,g_train_loss_mean: 23088.55859375, g_train_loss_std: 34225.5859375
